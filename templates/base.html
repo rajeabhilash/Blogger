@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Monthly Challenge Hub{% endblock %}</title>
+    {% load static %} {# Load the staticfiles tag library #}
+    <link rel="stylesheet" href="{% static 'css/base_styles.css' %}">
+    {% block extra_head %}{% endblock %} {# Placeholder for page-specific head content #}
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><a href="{% url 'challenges:index' %}">My Challenge Hub</a></h1>
+            <nav>
+                <a href="{% url 'challenges:index' %}">Challenges</a>
+                {# Add more navigation links here for other apps/pages if you create them #}
+                <a href="/admin/">Admin</a> {# Quick link to admin for development #}
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+            {# Content from child templates will be inserted here #}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {% now "Y" %} Monthly Challenge Hub. All rights reserved.</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %} {# Placeholder for page-specific JavaScript #}
+</body>
+</html>

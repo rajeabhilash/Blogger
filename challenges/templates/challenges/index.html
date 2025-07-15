@@ -1,0 +1,93 @@
+{% extends "base.html" %} {# Extends the base layout #}
+{% load static %} {# Necessary if you add any challenges-specific static files later #}
+
+{% block title %}{{ page_title }}{% endblock %} {# Sets the page title #}
+
+{% block extra_head %}
+    <style>
+        /* Specific styles for the index page */
+        .page-heading {
+            text-align: center;
+            color: #34495e; /* Darker blue */
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            letter-spacing: 1px;
+        }
+
+        .month-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 30px; /* Space between grid items */
+            padding: 20px;
+        }
+
+        .month-item {
+            background-color: #e3f2fd; /* Light blue */
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px; /* Ensure consistent height */
+            position: relative; /* For the pseudo-element glow */
+            overflow: hidden; /* Hide overflow of pseudo-element */
+        }
+
+        .month-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(52, 152, 219, 0.2) 0%, rgba(0,0,0,0) 70%); /* Subtle glow */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .month-item:hover::before {
+            opacity: 1;
+        }
+
+        .month-item:hover {
+            transform: translateY(-8px) scale(1.02); /* Lift and slight scale effect on hover */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background-color: #bbdefb; /* Slightly darker blue on hover */
+        }
+
+        .month-item a {
+            text-decoration: none;
+            color: #2c3e50; /* Dark blue text */
+            font-size: 1.8em;
+            font-weight: bold;
+            padding: 30px; /* Make the whole area clickable */
+            display: flex; /* Use flex to center text vertically */
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Ensure link text is above pseudo-element */
+            position: relative;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="page-heading">Discover All Monthly Challenges</h1>
+
+    <div class="month-grid">
+        {% for month in months %}
+            <div class="month-item">
+                {# Link to the month_name_challenge URL #}
+                <a href="{% url 'challenges:month_name_challenge' month_name=month|lower %}">
+                    {{ month }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <p style="text-align: center; margin-top: 50px; font-style: italic; color: #555;">
+        Ready to take on a new challenge every month? Pick one and get started!
+    </p>
+{% endblock %}
