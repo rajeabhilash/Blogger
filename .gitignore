@@ -1,2 +1,35 @@
-.venv
-**/__pycache__/
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Django specific
+*.log
+*.sqlite3
+media/
+static_collected/ # If you set STATIC_ROOT to 'staticfiles'
+staticfiles/ # Common name for STATIC_ROOT output
+
+# IDE specific (e.g., VS Code)
+.vscode/
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Environment variables (if you start using django-environ or similar)
+.env
+
+# Secret key file (if separate from settings.py)
+secret_key.py
+
+# Any local settings file if you have one
+local_settings.py
