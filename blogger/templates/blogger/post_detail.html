@@ -1,0 +1,74 @@
+{% extends "blog_base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* Add your CSS styles here or link to an external stylesheet */
+    .post-detail-container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        padding: 40px;
+    }
+    .post-title {
+        color: #2c3e50;
+        font-size: 3em;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .post-byline {
+        text-align: center;
+        font-size: 1.1em;
+        color: #666;
+        margin-bottom: 30px;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 20px;
+    }
+    .post-byline strong {
+        color: #3498db;
+    }
+    .post-content {
+        font-size: 1.15em;
+        line-height: 1.8;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .post-content p {
+        margin-bottom: 1.2em;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 40px;
+        padding: 12px 25px;
+        background-color: #7f8c8d; /* Grey button */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        text-align: center;
+    }
+    .back-link:hover {
+        background-color: #5d6d7e;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="post-detail-container">
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="post-byline">
+            Published by <strong>{{ post.author }}</strong> on {{ post.publish|date:"F d, Y" }}
+        </p>
+        <div class="post-content">
+            {{ post.body|linebreaks }}
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{% url 'blogger:post_list' %}" class="back-link">Back to All Posts</a> {# <--- Changed namespace to 'blogger' #}
+        </div>
+    </div>
+{% endblock %}

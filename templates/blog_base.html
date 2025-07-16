@@ -1,0 +1,57 @@
+{% load static %} {# This line is crucial for loading static files like CSS/JS #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {# Title block for page-specific titles #}
+    <title>{% block title %}Blogger Project{% endblock %}</title>
+
+    {# Link to your main stylesheet #}
+    <link rel="stylesheet" href="{% static 'css/blog_base_styles.css' %}">
+
+    {# Favicon (optional, but good practice) #}
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    {# Additional head content (e.g., page-specific CSS, meta tags) #}
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="site-branding">
+                <a href="{% url 'blogger:post_list' %}" class="site-title">My Awesome Blog</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'blogger:post_list' %}">Posts</a></li>
+                {# You can add more navigation links here #}
+                {% if user.is_authenticated %}
+                    <li>Hello, {{ user.username }}!</li>
+                    <li><a href="{% url 'admin:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'admin:login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {# Main content block where other templates will insert their content #}
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; {{ current_year|default:2025 }} Blogger Project. All rights reserved.</p>
+            <p>Built with Django and ❤️</p>
+        </div>
+    </footer>
+
+    {# Optional: Add common JavaScript files here #}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

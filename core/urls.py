@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="Home"),
-    path('blogs/', include('blogger.urls')),
+    path('blogs/', include('blogger.urls',namespace='blogger')),
     path('challenges/', include('challenges.urls',namespace='challenges')),
 ]
 

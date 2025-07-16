@@ -1,0 +1,89 @@
+{% extends "blog_base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    /* Add your CSS styles here or link to an external stylesheet */
+    .post-list-heading {
+        text-align: center;
+        color: #34495e;
+        margin-bottom: 40px;
+        font-size: 2.8em;
+        letter-spacing: 1px;
+    }
+    .post-item {
+        background-color: #f9f9f9;
+        border: 2px solid #3498db; /* Blue accent */
+        padding: 25px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .post-item:hover {
+        transform: translateY(-5px);
+        border-left: 8px solid #3498db;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .post-item h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 2em;
+    }
+    .post-item h2 a {
+        color: #2c3e50;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    .post-item h2 a:hover {
+        color: #3498db;
+    }
+    .post-meta {
+        font-size: 0.9em;
+        color: #777;
+        margin-bottom: 15px;
+    }
+    .post-meta span {
+        margin-right: 15px;
+    }
+    .post-excerpt {
+        color: #555;
+        line-height: 1.7;
+    }
+    .read-more {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 8px 15px;
+        background-color: #2ecc71; /* Green button */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .read-more:hover {
+        background-color: #27ae60;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="post-list-heading">{{ page_title }}</h1>
+
+    {% for post in posts %}
+        <div class="post-item">
+            <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+            <p class="post-meta">
+                <span>Published on {{ post.publish|date:"F d, Y" }}</span>
+                <span>by {{ post.author }}</span>
+            </p>
+            <p class="post-excerpt">
+                {{ post.body|truncatechars:200 }}
+            </p>
+            <a href="{{ post.get_absolute_url }}" class="read-more">Read More</a>
+        </div>
+    {% empty %}
+        <p style="text-align: center; color: #777; font-style: italic;">No posts found yet. Check back soon!</p>
+    {% endfor %}
+{% endblock %}
