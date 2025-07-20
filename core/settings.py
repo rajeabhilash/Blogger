@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'blogger_db',         
         'USER': 'postgres',
         'PASSWORD': 'HPAU118tx',
-        'HOST': '192.168.1.4',
+        'HOST': '192.168.1.9',
         'PORT': '5432',
     }
 }

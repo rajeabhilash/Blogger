@@ -4,6 +4,15 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
 
+class Author(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email_id = models.EmailField(max_length=254)
+    address = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status=Post.Status.PUBLISHED)
@@ -16,7 +25,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
-    author = models.ForeignKey(User,
+    author = models.ForeignKey(Author,
                                on_delete=models.CASCADE,
                                related_name='blog_posts')
     body = models.TextField() # The main content of the post

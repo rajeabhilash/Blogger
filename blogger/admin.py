@@ -1,6 +1,6 @@
 # project_root/blogger/admin.py (the app's admin.py)
 from django.contrib import admin
-from .models import Post # Relative import for Post model
+from .models import Post, Author # Relative import for Post model
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -11,3 +11,5 @@ class PostAdmin(admin.ModelAdmin):
     raw_id_fields = ['author'] # Provides a search widget for author
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
+    
+admin.site.register(Author)
